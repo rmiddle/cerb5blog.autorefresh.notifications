@@ -1,26 +1,15 @@
 <?php
-if (class_exists('Extension_TicketToolbarItem',true)):
-	class TicketToolbarItem_WgmDisplayShortcut extends Extension_TicketToolbarItem {
-		function render(Model_Ticket $ticket) { 
-			$tpl = DevblocksPlatform::getTemplateService();
-			
-			$groups = DAO_Group::getAll();
-			$tpl->assign('groups', $groups);
-			
-			$buckets = DAO_Bucket::getAll();
-			$tpl->assign('buckets', $buckets);
-			
-			$group_buckets = DAO_Bucket::getGroups();
-			$tpl->assign('group_buckets', $group_buckets);
-			
-			$tpl->assign('ticket', $ticket); /* @var $message Model_Ticket */			
-			$tpl->display('devblocks:wgm.ticket.display.move_to::button.tpl');
+if (class_exists('Extension_AppPreBodyRenderer',true)):
+	class Cerb5blogAutorefreshNotificationsPreBodyRenderer extends Extension_AppPreBodyRenderer {
+		function render() { 
+                    $tpl = DevblocksPlatform::getTemplateService();
+                    $tpl->display('devblocks:cerb5blog.autorefresh.notifications::header.tpl');
 		}
 	};
 endif;
 
 if (class_exists('DevblocksControllerExtension',true)):
-class Controller_WgmDisplayShortcutAjax extends DevblocksControllerExtension {
+class Controller_Cerb5blogAutorefreshNotificationsAjax extends DevblocksControllerExtension {
 	function isVisible() {
 		// The current session must be a logged-in worker to use this page.
 		if(null == ($worker = CerberusApplication::getActiveWorker()))
@@ -57,30 +46,14 @@ class Controller_WgmDisplayShortcutAjax extends DevblocksControllerExtension {
 		return;
 	}
 	
-	function saveDisplayMoveToAction() {
-		@$ticket_id = DevblocksPlatform::importGPC($_REQUEST['ticket_id'],'integer');
-		@$move_bucket = DevblocksPlatform::importGPC($_REQUEST['wgm_moveto'],'string','');
-		
-		$groups = DAO_Group::getAll();
-		$buckets = DAO_Bucket::getAll();
-		
-		if(empty($ticket_id))
-			exit;
-		
-		// Group/Bucket
-		if(!empty($move_bucket)) {
-            list($group_id, $bucket_id) = CerberusApplication::translateGroupBucketCode($move_bucket);
-
-			if(!empty($group_id)) {
-				$fields = array(
-			    	DAO_Ticket::GROUP_ID => $group_id,
-			    	DAO_Ticket::BUCKET_ID => $bucket_id,
-			    );
-			    DAO_Ticket::update($ticket_id, $fields);
-			}
-		}
-		
-		exit;
+	function getUnreadNotificationsAction() {
+            $active_worker = CerberusApplication::getActiveWorker();
+            if(!empty($active_worker)) {
+                        $tpl = DevblocksPlatform::getTemplateService();
+			$unread_notifications = DAO_Notification::getUnreadCountByWorker($active_worker->id);
+			$tpl->assign('active_worker_notify_count', $unread_notifications);
+			$tpl->display('devblocks:cerb5blog.autorefresh.notifications::badge_notifications_script.tpl');
+                    }
 	}
 };
 endif;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.devblocks.com/schema/plugin.xsd">
     <id>cerb5blog.autorefresh.notifications</id>
-    <name>Ajax Update of Unread Notification</name>
+    <name>[Cerb5blog] Ajax Update of Unread Notification</name>
     <description>Ajax Update of Unread Notification</description>
     <author>Robert Middleswarth</author>
     <version>1.0.0</version>
