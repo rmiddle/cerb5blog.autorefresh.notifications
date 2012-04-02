@@ -7,14 +7,14 @@ What's this?
 ------------
 Ajax Update of Unread Notification
 
-* Not yet tested 
+* 5.7.2 
 
 Installation using Git
 ------------
 * Change directory to **/cerb5/storage/plugins/**
 * `git clone git://github.com/rmiddle/cerb5blog.autorefresh.notifications.git`
 * `cd cerb5blog.convert_auditlog`
-* `git checkout --track -b 5.8 origin/5.8`
+* `git checkout --track -b 5.7 origin/5.7`
 * In your helpdesk, enable the plugin from **Setup->Features & Plugins**.
 
 Installation using zip / tar.gz
