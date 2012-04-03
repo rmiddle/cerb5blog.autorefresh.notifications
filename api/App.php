@@ -12,8 +12,8 @@ if (class_exists('DevblocksControllerExtension',true)):
 class Controller_Cerb5blogAutorefreshNotificationsAjax extends DevblocksControllerExtension {
 	function isVisible() {
 		// The current session must be a logged-in worker to use this page.
-		if(null == ($worker = CerberusApplication::getActiveWorker()))
-			return false;
+		//if(null == ($worker = CerberusApplication::getActiveWorker()))
+		//	return false;
 		return true;
 	}
 
@@ -47,13 +47,15 @@ class Controller_Cerb5blogAutorefreshNotificationsAjax extends DevblocksControll
 	}
 	
 	function getUnreadNotificationsAction() {
+            $tpl = DevblocksPlatform::getTemplateService();
             $active_worker = CerberusApplication::getActiveWorker();
             if(!empty($active_worker)) {
-                        $tpl = DevblocksPlatform::getTemplateService();
-			$unread_notifications = DAO_Notification::getUnreadCountByWorker($active_worker->id);
-			$tpl->assign('active_worker_notify_count', $unread_notifications);
-			$tpl->display('devblocks:cerb5blog.autorefresh.notifications::badge_notifications_script.tpl');
-                    }
+		$unread_notifications = DAO_Notification::getUnreadCountByWorker($active_worker->id);
+		$tpl->assign('active_worker_notify_count', $unread_notifications);
+                $tpl->display('devblocks:cerb5blog.autorefresh.notifications::badge_notifications_script.tpl');
+            } else {
+                $tpl->display('devblocks:cerb5blog.autorefresh.notifications::session_expire.tpl');
+            }
 	}
 };
 endif;
