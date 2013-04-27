@@ -4,14 +4,14 @@
     <name>[Cerb5blog] Ajax Update of Unread Notification</name>
     <description>cerb5blog.com ajax Update of Unread Notification</description>
     <author>Robert Middleswarth</author>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
     <link>http://www.cerb5blog.com/</link>
     <image>plugin.png</image>
  
     <!-- Requirements -->
 
     <requires>
-        <app_version min="5.6" max="5.8.99" />
+        <app_version min="5.6" max="6.3.99" />
     </requires>
  
     <!-- Plugin Dependencies -->
@@ -23,6 +23,20 @@
     <!-- Extensions -->
  
     <extensions>
+
+        <!-- Plugin Setup -->
+
+        <extension point="cerberusweb.plugin.setup">
+            <id>cerb5blog.autorefresh.notifications.setup</id>
+            <name>Setup</name>
+            <class>
+                <file>api/App.php</file>
+                <name>Cerb5blogAutorefreshNotifications_Setup</name>
+            </class>
+            <params>
+                <param key="tab_label" value="cerb5blog.autorefresh.notifications.common" />
+            </params>
+        </extension>
 
         <!-- Controller -->
 
