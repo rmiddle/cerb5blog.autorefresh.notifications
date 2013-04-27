@@ -14,7 +14,7 @@ Installation using Git
 * Change directory to **/cerb5/storage/plugins/**
 * `git clone git://github.com/rmiddle/cerb5blog.autorefresh.notifications.git`
 * `cd cerb5blog.convert_auditlog`
-* `git checkout --track -b 6.2 origin/6.2`
+* `git checkout --track -b 6.3 origin/6.3`
 * In your helpdesk, enable the plugin from **Setup->Features & Plugins**.
 
 Installation using zip / tar.gz
