@@ -5,6 +5,12 @@
 	<body>
 
 		<!-- Plugin Strings -->
+		<tu tuid='cerb5blog.autorefresh.notifications.common'>
+			<tuv xml:lang="en_US"><seg>Unread Notification Update</seg></tuv>
+		</tu>
+		<tu tuid='cerb5blog.autorefresh.notifications.refresh.rate'>
+			<tuv xml:lang="en_US"><seg>Refresh rate in seconds (5-1000)*:</seg></tuv>
+		</tu>
 
 		<tu tuid='cerb5blog.autorefresh.notifications.session_expire'>
 			<tuv xml:lang="en_US"><seg>Session has expired</seg></tuv>
